@@ -9,7 +9,7 @@ public class Doctor extends Persona {
     private String especialidad;
     private String codigoDoctor;
 
-    public Doctor(String nombre, String apellido, String DUI, String fechaNacimiento, LocalDateTime fechaReclutacion, String especialidad, String codigoDoctor) {
+    public Doctor(String nombre, String apellido, String DUI, LocalDateTime fechaNacimiento, LocalDateTime fechaReclutacion, String especialidad, String codigoDoctor) {
         super(nombre, apellido, DUI, fechaNacimiento);
         this.fechaReclutacion = fechaReclutacion;
         this.especialidad = especialidad;
