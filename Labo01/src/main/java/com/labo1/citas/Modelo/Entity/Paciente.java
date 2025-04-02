@@ -6,7 +6,7 @@ public class Paciente extends Persona {
 
     //private Persona persona;
 
-    public Paciente(String nombre, String apellido, String DUI, LocalDateTime fechaNacimiento) {
-        super(nombre, apellido, DUI, fechaNacimiento);
+    public Paciente(String nombre, String apellido, String dui, LocalDateTime fechaNacimiento) {
+        super(nombre, apellido, dui, fechaNacimiento);
     }
 }

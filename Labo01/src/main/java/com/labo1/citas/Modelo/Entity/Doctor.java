@@ -7,13 +7,15 @@ public class Doctor extends Persona {
     //private Persona persona;
     private LocalDateTime fechaReclutacion;
     private String especialidad;
-    private String codigoDoctor;
+    private String codigo;
 
-    public Doctor(String nombre, String apellido, String DUI, LocalDateTime fechaNacimiento, LocalDateTime fechaReclutacion, String especialidad, String codigoDoctor) {
-        super(nombre, apellido, DUI, fechaNacimiento);
+    public Doctor(String nombre, String apellido, String dui, LocalDateTime fechaNacimiento, LocalDateTime fechaReclutacion, String especialidad, String codigo) {
+        //super esta llamando al constructor de la clase padre, en este caso Persona, asi cuando se construye un paciente, tambien se construya una persona
+
+        super(nombre, apellido, dui, fechaNacimiento);
         this.fechaReclutacion = fechaReclutacion;
         this.especialidad = especialidad;
-        this.codigoDoctor = codigoDoctor;
+        this.codigo = codigo;
     }
 
     public LocalDateTime getFechaReclutacion() {
@@ -33,10 +35,10 @@ public class Doctor extends Persona {
     }
 
     public String getCodigoDoctor() {
-        return codigoDoctor;
+        return codigo;
     }
 
     public void setCodigoDoctor(String codigoDoctor) {
-        this.codigoDoctor = codigoDoctor;
+        this.codigo = codigoDoctor;
     }
 }

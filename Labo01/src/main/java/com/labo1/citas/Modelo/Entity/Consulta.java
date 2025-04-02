@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class Consulta extends Cita {
     //private Cita cita;
+    //private solo puede ser accedido desde su propia clase
     private boolean asistenciaPaciente;
     private String motivoConsulta;
 
