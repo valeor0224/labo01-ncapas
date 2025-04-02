@@ -1,12 +1,14 @@
 package com.labo1.citas.Modelo.Entity;
 
+import java.time.LocalDateTime;
+
 public class Persona {
     private String nombre;
     private String apellido;
     private String DUI;
-    private String fechaNacimiento;
+    private LocalDateTime fechaNacimiento;
 
-    public Persona(String nombre, String apellido, String DUI, String fechaNacimiento) {
+    public Persona(String nombre, String apellido, String DUI, LocalDateTime fechaNacimiento) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.DUI = DUI;
@@ -37,11 +39,11 @@ public class Persona {
         this.DUI = DUI;
     }
 
-    public String getFechaNacimiento() {
+    public LocalDateTime getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(String fechaNacimiento) {
+    public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 }

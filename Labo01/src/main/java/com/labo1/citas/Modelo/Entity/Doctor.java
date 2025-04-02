@@ -1,24 +1,26 @@
 package com.labo1.citas.Modelo.Entity;
 
+import java.time.LocalDateTime;
+
 public class Doctor extends Persona {
 
     //private Persona persona;
-    private String fechaReclutacion;
+    private LocalDateTime fechaReclutacion;
     private String especialidad;
     private String codigoDoctor;
 
-    public Doctor(String nombre, String apellido, String DUI, String fechaNacimiento, String fechaReclutacion, String especialidad, String codigoDoctor) {
+    public Doctor(String nombre, String apellido, String DUI, String fechaNacimiento, LocalDateTime fechaReclutacion, String especialidad, String codigoDoctor) {
         super(nombre, apellido, DUI, fechaNacimiento);
         this.fechaReclutacion = fechaReclutacion;
         this.especialidad = especialidad;
         this.codigoDoctor = codigoDoctor;
     }
 
-    public String getFechaReclutacion() {
+    public LocalDateTime getFechaReclutacion() {
         return fechaReclutacion;
     }
 
-    public void setFechaReclutacion(String fechaReclutacion) {
+    public void setFechaReclutacion(LocalDateTime fechaReclutacion) {
         this.fechaReclutacion = fechaReclutacion;
     }
 
