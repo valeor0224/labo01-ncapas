@@ -1,4 +1,4 @@
-package com.citas.Modelo.Entity;
+package com.labo1.citas.Modelo.Entity;
 
 public class Persona {
     private String nombre;
