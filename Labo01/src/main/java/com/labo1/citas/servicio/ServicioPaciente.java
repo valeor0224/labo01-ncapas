@@ -1,4 +1,4 @@
-package servicio;
+package com.labo1.citas.servicio
 
 import modelo.Paciente;
 import java.util.ArrayList;
