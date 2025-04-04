@@ -22,198 +22,196 @@ public class Menu {
 
     public void mostrarMenu() {
         while (true) {
-        System.out.println("\n===== MENÚ PRINCIPAL =====");
-        System.out.println("1. Agregar Paciente");
-        System.out.println("2. Listar Pacientes");
-        System.out.println("3. Agregar Doctor");
-        System.out.println("4. Listar Doctores");
-        System.out.println("5. Agregar Cita");
-        System.out.println("6. Listar Citas");
-        System.out.println("0. Salir");
-        System.out.print("Seleccione una opción: ");
+            System.out.println("\n===== MENÚ PRINCIPAL =====");
+            System.out.println("1. Agregar Paciente");
+            System.out.println("2. Listar Pacientes");
+            System.out.println("3. Agregar Doctor");
+            System.out.println("4. Listar Doctores");
+            System.out.println("5. Agregar Cita");
+            System.out.println("6. Listar Citas");
+            System.out.println("7. Cancelar Cita");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
 
-        int opcion = scanner.nextInt();
-        scanner.nextLine(); // Limpiar buffer
+            int opcion = scanner.nextInt();
+            scanner.nextLine(); // Limpiar buffer
 
-        switch (opcion) {
-            case 1:
-                agregarPacienteDesdeMenu();
-                break;
+            switch (opcion) {
+                case 1:
+                    agregarPacienteDesdeMenu();
+                    break;
 
-            case 2:
-                manager.listPatients();
-                break;
+                case 2:
+                    manager.listPatients();
+                    break;
 
-            case 3:
-                agregarDoctordesMenu();
-                break;
+                case 3:
+                    agregarDoctordesMenu();
+                    break;
 
-            case 4:
-                manager.listDoctors();
-                break;
+                case 4:
+                    manager.listDoctors();
+                    break;
 
-            case 5:
-                agregarCitasMenu();
-                break;
+                case 5:
+                    agregarCitasMenu();
+                    break;
 
-            case 6:
-                manager.listCitas();
-                break;
+                case 6:
+                    manager.listCitas();
+                    break;
 
-            case 0:
-                System.out.println("Saliendo del programa...");
-                scanner.close();
-                System.exit(0);
-                break;
+                case 7:
+                    EliminarCita();
+                    break;
 
-            default:
-                System.out.println("❌ Opción no válida.");
+
+                case 0:
+                    System.out.println("Saliendo del programa...");
+                    scanner.close();
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("❌ Opción no válida.");
+            }
         }
     }
-}
 
-private void agregarPacienteDesdeMenu() {
+    private void agregarPacienteDesdeMenu() {
 
-    System.out.print("👤 Nombre: ");
-    String nombre = scanner.nextLine();
+        System.out.print("👤 Nombre: ");
+        String nombre = scanner.nextLine();
 
-    System.out.print("👤 Apellido: ");
-    String apellido = scanner.nextLine();
+        System.out.print("👤 Apellido: ");
+        String apellido = scanner.nextLine();
 
-    System.out.print("📅 Fecha de Nacimiento (yyyy-MM-dd): ");
-    String fechaNacimientoStr = scanner.nextLine();
-    LocalDate fechaNacimiento;
+        System.out.print("📅 Fecha de Nacimiento (yyyy-MM-dd): ");
+        String fechaNacimientoStr = scanner.nextLine();
+        LocalDate fechaNacimiento;
 
-    try {
-        fechaNacimiento = LocalDate.parse(fechaNacimientoStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    } catch (Exception e) {
-        System.out.println("❌ Error: Fecha inválida.");
-        return;
+        try {
+            fechaNacimiento = LocalDate.parse(fechaNacimientoStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (Exception e) {
+            System.out.println("❌ Error: Fecha inválida.");
+            return;
+        }
+
+        if (fechaNacimiento.isAfter(LocalDate.now())) {
+            System.out.println("❌ Error: La fecha de nacimiento no puede estar en el futuro.");
+            return;
+        }
+
+
+        int edad = LocalDate.now().getYear() - fechaNacimiento.getYear();
+        String dui = "00000000-0,"; // Valor por defecto
+
+        if (edad >= 18) {
+            System.out.print("🆔 Ingrese el DUI: ");
+            dui = scanner.nextLine();
+            if (!dui.matches("\\d{8}-\\d{1}")) {
+                System.out.println("El dui no es válido");
+                return;
+            }
+        }
+
+
+        Paciente nuevoPaciente = new Paciente(nombre, apellido, dui, fechaNacimiento);
+        manager.agregarPaciente(nuevoPaciente);
     }
 
-    if (fechaNacimiento.isAfter(LocalDate.now())) {
-        System.out.println("❌ Error: La fecha de nacimiento no puede estar en el futuro.");
-        return;
-    }
 
+    public void agregarDoctordesMenu() {
 
-    int edad = LocalDate.now().getYear() - fechaNacimiento.getYear();
-    String dui = "00000000-0,"; // Valor por defecto
+        System.out.print("👤 Nombre: ");
+        String nombre = scanner.nextLine();
 
-    if (edad >= 18) {
+        System.out.print("👤 Apellido: ");
+        String apellido = scanner.nextLine();
+
+        System.out.print("📅 Fecha de Nacimiento (yyyy-MM-dd): ");
+        String fechaNacimientoStr = scanner.nextLine();
+        LocalDate fechaNacimiento;
+
+        try {
+            fechaNacimiento = LocalDate.parse(fechaNacimientoStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (Exception e) {
+            System.out.println("❌ Error: Fecha inválida.");
+            return;
+        }
+
+        if (fechaNacimiento.isAfter(LocalDate.now())) {
+            System.out.println("❌ Error: La fecha de nacimiento no puede estar en el futuro.");
+            return;
+        }
+
         System.out.print("🆔 Ingrese el DUI: ");
-        dui = scanner.nextLine();
-        if(!dui.matches("\\d{8}-\\d{1}")) {
+        String dui = scanner.nextLine();
+        if (!dui.matches("\\d{8}-\\d{1}")) {
             System.out.println("El dui no es válido");
             return;
         }
+
+        System.out.println("Especialidad: ");
+        String especialidad = scanner.nextLine();
+
+        System.out.println("Fecha de reclutacion (yyyy-MM-dd): ");
+        String fechaReclutacionStr = scanner.nextLine();
+
+        LocalDate fechaReclutacion;
+
+        try {
+            fechaReclutacion = LocalDate.parse(fechaReclutacionStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (Exception e) {
+            System.out.println("❌ Error: Fecha inválida.");
+            return;
+        }
+
+
+        Doctor nuevoDoctor = new Doctor(nombre, apellido, dui, fechaNacimiento, fechaReclutacion, especialidad);
+
+        manager.agregarDoctor(nuevoDoctor);
     }
 
+    public void agregarCitasMenu() {
 
-    Paciente nuevoPaciente = new Paciente(nombre, apellido, dui, fechaNacimiento);
-    manager.agregarPaciente(nuevoPaciente);
-}
+        System.out.println("Escriba el id del paciente: ");
+        String idPaciente = scanner.nextLine();
 
-
-public void agregarDoctordesMenu() {
-
-    System.out.print("👤 Nombre: ");
-    String nombre = scanner.nextLine();
-
-    System.out.print("👤 Apellido: ");
-    String apellido = scanner.nextLine();
-
-    System.out.print("📅 Fecha de Nacimiento (yyyy-MM-dd): ");
-    String fechaNacimientoStr = scanner.nextLine();
-    LocalDate fechaNacimiento;
-
-    try {
-        fechaNacimiento = LocalDate.parse(fechaNacimientoStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    } catch (Exception e) {
-        System.out.println("❌ Error: Fecha inválida.");
-        return;
-    }
-
-    if (fechaNacimiento.isAfter(LocalDate.now())) {
-        System.out.println("❌ Error: La fecha de nacimiento no puede estar en el futuro.");
-        return;
-    }
-
-    System.out.print("🆔 Ingrese el DUI: ");
-    String dui = scanner.nextLine();
-    if(!dui.matches("\\d{8}-\\d{1}")) {
-        System.out.println("El dui no es válido");
-        return;
-    }
-
-    System.out.println("Especialidad: ");
-    String especialidad = scanner.nextLine();
-
-    System.out.println("Fecha de reclutacion (yyyy-MM-dd): ");
-    String fechaReclutacionStr = scanner.nextLine();
-
-    LocalDate fechaReclutacion;
-
-    try {
-        fechaReclutacion = LocalDate.parse(fechaReclutacionStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    } catch (Exception e) {
-        System.out.println("❌ Error: Fecha inválida.");
-        return;
-    }
+        System.out.println("Escriba el codigo del doctor: ");
+        String codigoDoctor = scanner.nextLine();
 
 
+        System.out.print("📅 Fecha de Cita (yyyy-MM-dd): ");
+        String fechaCitaStr = scanner.nextLine();
+        LocalDate fechaCita;
+        LocalTime horaCita;
+        String horaCitaStr;
 
-    Doctor nuevoDoctor = new Doctor(nombre, apellido, dui, fechaNacimiento, fechaReclutacion, especialidad);
-
-    manager.agregarDoctor(nuevoDoctor);
-}
-
-public void agregarCitasMenu() {
-
-    System.out.println("Escriba el id del paciente: ");
-    String idPaciente = scanner.nextLine();
-
-    System.out.println("Escriba el codigo del doctor: ");
-    String codigoDoctor = scanner.nextLine();
-
-
-    System.out.print("📅 Fecha de Cita (yyyy-MM-dd): ");
-    String fechaCitaStr = scanner.nextLine();
-    LocalDate fechaCita;
-    LocalTime horaCita;
-    String horaCitaStr;
-
-    try {
-        fechaCita = LocalDate.parse(fechaCitaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    } catch (Exception e) {
-        System.out.println("❌ Error: Fecha inválida.");
-        return;
-    }
+        try {
+            fechaCita = LocalDate.parse(fechaCitaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (Exception e) {
+            System.out.println("❌ Error: Fecha inválida.");
+            return;
+        }
 
 
-    if (fechaCita.isAfter(LocalDate.now())) {
-        horaCita = getRandomTimeBetween(8, 16);
-    }
-    else {
+        if (fechaCita.isAfter(LocalDate.now())) {
+            horaCita = getRandomTimeBetween(8, 16);
+        } else {
+            System.out.println("Hora de cita: ");
+            horaCitaStr = scanner.nextLine();
+            horaCita = LocalTime.parse(horaCitaStr, DateTimeFormatter.ofPattern("HH:mm"));
+        }
+
+
         System.out.println("Hora de cita: ");
-        horaCitaStr = scanner.nextLine();
-        horaCita = LocalTime.parse(horaCitaStr, DateTimeFormatter.ofPattern("HH:mm"));
+
+
+        manager.agendarCita(idPaciente, codigoDoctor, fechaCita, horaCita);
+
+
     }
-
-
-
-    System.out.println("Hora de cita: ");
-
-
-
-
-    manager.agendarCita(idPaciente, codigoDoctor, fechaCita, horaCita);
-
-
-
-
-
-}
 
     private LocalTime getRandomTimeBetween(int startHour, int endHour) {
         Random random = new Random();
@@ -223,7 +221,24 @@ public void agregarCitasMenu() {
     }
 
 
+    public void EliminarCita() {
+        System.out.println("Ingrese fecha de cita a eliminar");
+        String fechaCitaStr = scanner.nextLine();
 
+        LocalDate fechaCita;
+        LocalTime horaCita;
+
+        fechaCita = LocalDate.parse(fechaCitaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+
+        System.out.println("Ingrese hora de cita a eliminar");
+        String horaCitaStr = scanner.nextLine();
+
+        horaCita = LocalTime.parse(horaCitaStr, DateTimeFormatter.ofPattern("HH:mm"));
+
+
+        manager.DeleteCita(fechaCita, horaCita);
+    }
 
 
 }

@@ -44,9 +44,6 @@ public class ManejoCitas {
 
     public void agregarDoctor(Doctor doctor) {
 
-
-
-
         String codigo = generarCodigo();
         System.out.println("Código generado: " + codigo);
 
@@ -95,7 +92,8 @@ public class ManejoCitas {
 
 
         for (Cita cita : citas) {
-            if(cita.getCitaHora().equals(horaCita)&& (cita.getCitaFecha().equals(fechaCita) || cita.getPaciente().getId().equals(patient.getId()))) {
+            if(cita.getCitaHora().equals(horaCita)&&cita.getCitaFecha().equals(fechaCita)&&
+                    (cita.getDoctor().getCodigoDoctor().equals(doctorId) || cita.getPaciente().getId().equals(patientId))) {
                 System.out.println("No es posible agendar cita.");
                 return;
             }
@@ -126,6 +124,16 @@ public class ManejoCitas {
                 .filter(d -> d.getCodigoDoctor().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void DeleteCita(LocalDate fecha, LocalTime hora) {
+        /*for (Cita c : citas) {
+            if (c.getCitaFecha().equals(fecha) && c.getCitaHora().equals(hora)) {
+                citas.remove(c);
+            }
+        }*/
+        citas.removeIf(c -> c.getCitaFecha().equals(fecha) && c.getCitaHora().equals(hora));
+
     }
 
 
