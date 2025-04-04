@@ -13,6 +13,7 @@ public class ManejoCitas {
     private int contadorPacientes = 1; // Contador para generar IDs únicos
 
     public void agregarPaciente(Paciente paciente) {
+
         // Validar si ya existe un paciente con el mismo DUI
         for (Paciente p : pacientes) {
             if (p.getDUI().equals(paciente.getDUI())) {

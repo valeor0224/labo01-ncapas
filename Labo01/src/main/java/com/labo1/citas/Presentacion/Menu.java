@@ -76,12 +76,17 @@ private void agregarPacienteDesdeMenu() {
 
 
     int edad = LocalDate.now().getYear() - fechaNacimiento.getYear();
-    String dui = "0000"; // Valor por defecto
+    String dui = "00000000-0,"; // Valor por defecto
 
     if (edad >= 18) {
         System.out.print("🆔 Ingrese el DUI: ");
         dui = scanner.nextLine();
+        if(!dui.matches("\\d{8}-\\d{1}")) {
+            System.out.println("El dui no es válido");
+            return;
+        }
     }
+
 
     Paciente nuevoPaciente = new Paciente(nombre, apellido, dui, fechaNacimiento);
     manager.agregarPaciente(nuevoPaciente);
