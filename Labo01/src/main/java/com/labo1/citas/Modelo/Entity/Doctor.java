@@ -10,13 +10,12 @@ public class Doctor extends Persona {
     private String especialidad;
     private String codigoDoctor;
 
-    public Doctor(String nombre, String apellido, String DUI, LocalDate fechaNacimiento, LocalDate fechaReclutacion, String especialidad, String codigoDoctor) {
+    public Doctor(String nombre, String apellido, String DUI, LocalDate fechaNacimiento, LocalDate fechaReclutacion, String especialidad) {
         //super esta llamando al constructor de la clase padre, en este caso Persona, asi cuando se construye un paciente, tambien se construya una persona
 
         super(nombre, apellido, DUI, fechaNacimiento);
         this.fechaReclutacion = fechaReclutacion;
         this.especialidad = especialidad;
-        this.codigoDoctor = codigoDoctor;
     }
 
     public LocalDate getFechaReclutacion() {
@@ -41,5 +40,18 @@ public class Doctor extends Persona {
 
     public void setCodigoDoctor(String codigoDoctor) {
         this.codigoDoctor = codigoDoctor;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "codigoDoctor='" + codigoDoctor + '\'' +
+                ",nombre" + getNombre() +
+                ", apellido" + getApellido() +
+                ", DUI" + getDUI() +
+                "fechaReclutacion=" + fechaReclutacion +
+                ", especialidad='" + especialidad + '\'' +
+                '}';
     }
 }
