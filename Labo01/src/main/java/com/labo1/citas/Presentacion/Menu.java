@@ -5,7 +5,9 @@ import com.labo1.citas.Modelo.Entity.Paciente;
 import com.labo1.citas.servicio.ManejoCitas;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Menu {
@@ -25,6 +27,8 @@ public class Menu {
         System.out.println("2. Listar Pacientes");
         System.out.println("3. Agregar Doctor");
         System.out.println("4. Listar Doctores");
+        System.out.println("5. Agregar Cita");
+        System.out.println("6. Listar Citas");
         System.out.println("0. Salir");
         System.out.print("Seleccione una opción: ");
 
@@ -46,6 +50,14 @@ public class Menu {
 
             case 4:
                 manager.listDoctors();
+                break;
+
+            case 5:
+                agregarCitasMenu();
+                break;
+
+            case 6:
+                manager.listCitas();
                 break;
 
             case 0:
@@ -155,4 +167,63 @@ public void agregarDoctordesMenu() {
 
     manager.agregarDoctor(nuevoDoctor);
 }
+
+public void agregarCitasMenu() {
+
+    System.out.println("Escriba el id del paciente: ");
+    String idPaciente = scanner.nextLine();
+
+    System.out.println("Escriba el codigo del doctor: ");
+    String codigoDoctor = scanner.nextLine();
+
+
+    System.out.print("📅 Fecha de Cita (yyyy-MM-dd): ");
+    String fechaCitaStr = scanner.nextLine();
+    LocalDate fechaCita;
+    LocalTime horaCita;
+    String horaCitaStr;
+
+    try {
+        fechaCita = LocalDate.parse(fechaCitaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    } catch (Exception e) {
+        System.out.println("❌ Error: Fecha inválida.");
+        return;
+    }
+
+
+    if (fechaCita.isAfter(LocalDate.now())) {
+        horaCita = getRandomTimeBetween(8, 16);
+    }
+    else {
+        System.out.println("Hora de cita: ");
+        horaCitaStr = scanner.nextLine();
+        horaCita = LocalTime.parse(horaCitaStr, DateTimeFormatter.ofPattern("HH:mm"));
+    }
+
+
+
+    System.out.println("Hora de cita: ");
+
+
+
+
+    manager.agendarCita(idPaciente, codigoDoctor, fechaCita, horaCita);
+
+
+
+
+
+}
+
+    private LocalTime getRandomTimeBetween(int startHour, int endHour) {
+        Random random = new Random();
+        int hour = startHour + random.nextInt(endHour - startHour);
+        int minute = random.nextBoolean() ? 0 : 30; // Horas en punto o media hora
+        return LocalTime.of(hour, minute);
+    }
+
+
+
+
+
 }

@@ -8,11 +8,13 @@ public class Cita {
     // desde el mismo paquete
     private Doctor doctor;
     private Paciente paciente;
+    private String especialidad;
     private LocalDate citaFecha;
     private LocalTime citaHora;
 
     public Cita(Doctor doctor, Paciente paciente, String especialidad, LocalDate citaFecha, LocalTime citaHora) {
         this.doctor = doctor;
+        this.especialidad = especialidad;
         this.paciente = paciente;
         this.citaFecha = citaFecha;
         this.citaHora = citaHora;
@@ -53,12 +55,20 @@ public class Cita {
         this.citaHora = citaHora;
     }
 
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
 
     @Override
     public String toString() {
         return "Cita{" +
                 "doctor=" + doctor +
                 ", paciente=" + paciente +
+                ", especialidad='" + especialidad + '\'' +
                 ", citaFecha=" + citaFecha +
                 ", citaHora=" + citaHora +
                 '}';
