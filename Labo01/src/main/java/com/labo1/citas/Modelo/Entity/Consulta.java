@@ -1,6 +1,8 @@
 package com.labo1.citas.Modelo.Entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Consulta extends Cita {
     //private Cita cita;
@@ -8,8 +10,8 @@ public class Consulta extends Cita {
     private boolean asistenciaPaciente;
     private String motivoConsulta;
 
-    public Consulta(Doctor doctor, Paciente paciente, LocalDateTime horaFecha, boolean asistenciaPaciente, String motivoConsulta) {
-        super(doctor, paciente, horaFecha);
+    public Consulta(Doctor doctor, Paciente paciente, String especialidad, LocalDate citaFecha, LocalTime citaHora, boolean asistenciaPaciente, String motivoConsulta) {
+        super(doctor, paciente, especialidad, citaFecha, citaHora);
         this.asistenciaPaciente = asistenciaPaciente;
         this.motivoConsulta = motivoConsulta;
     }

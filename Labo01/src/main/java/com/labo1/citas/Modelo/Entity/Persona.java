@@ -1,6 +1,6 @@
 package com.labo1.citas.Modelo.Entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 // Esta es una clase abstracta que representa a una persona, lo declaro abstract porque en el codigo solo estaremos
 // usando las clases Doctor y Paciente, no la clase Persona, por lo que no tiene sentido crear instancias de esta clase
@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
 public abstract class Persona {
     private String nombre;
     private String apellido;
-    private String dui;
-    private LocalDateTime fechaNacimiento;
+    private String DUI;
+    private LocalDate fechaNacimiento;
 
     // Constructor de la clase Persona
-    public Persona(String nombre, String apellido, String dui, LocalDateTime fechaNacimiento) {
+    public Persona(String nombre, String apellido, String DUI, LocalDate fechaNacimiento) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.dui = dui;
+        this.DUI = DUI;
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -39,18 +39,18 @@ public abstract class Persona {
     }
 
     public String getDUI() {
-        return dui;
+        return DUI;
     }
 
     public void setDUI(String DUI) {
-        this.dui = DUI;
+        this.DUI = DUI;
     }
 
-    public LocalDateTime getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -62,7 +62,7 @@ public abstract class Persona {
         return "Persona{" +
                 "nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
-                ", dui='" + dui + '\'' +
+                ", dui='" + DUI + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
                 '}';
     }

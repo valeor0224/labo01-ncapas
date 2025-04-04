@@ -1,28 +1,29 @@
 package com.labo1.citas.Modelo.Entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Doctor extends Persona {
 
     //private Persona persona;
-    private LocalDateTime fechaReclutacion;
+    private LocalDate fechaReclutacion;
     private String especialidad;
-    private String codigo;
+    private String codigoDoctor;
 
-    public Doctor(String nombre, String apellido, String dui, LocalDateTime fechaNacimiento, LocalDateTime fechaReclutacion, String especialidad, String codigo) {
+    public Doctor(String nombre, String apellido, String DUI, LocalDate fechaNacimiento, LocalDate fechaReclutacion, String especialidad, String codigoDoctor) {
         //super esta llamando al constructor de la clase padre, en este caso Persona, asi cuando se construye un paciente, tambien se construya una persona
 
-        super(nombre, apellido, dui, fechaNacimiento);
+        super(nombre, apellido, DUI, fechaNacimiento);
         this.fechaReclutacion = fechaReclutacion;
         this.especialidad = especialidad;
-        this.codigo = codigo;
+        this.codigoDoctor = codigoDoctor;
     }
 
-    public LocalDateTime getFechaReclutacion() {
+    public LocalDate getFechaReclutacion() {
         return fechaReclutacion;
     }
 
-    public void setFechaReclutacion(LocalDateTime fechaReclutacion) {
+    public void setFechaReclutacion(LocalDate fechaReclutacion) {
         this.fechaReclutacion = fechaReclutacion;
     }
 
@@ -35,10 +36,10 @@ public class Doctor extends Persona {
     }
 
     public String getCodigoDoctor() {
-        return codigo;
+        return codigoDoctor;
     }
 
     public void setCodigoDoctor(String codigoDoctor) {
-        this.codigo = codigoDoctor;
+        this.codigoDoctor = codigoDoctor;
     }
 }
