@@ -30,8 +30,9 @@ public class Menu {
             System.out.println("5. Agregar Cita");
             System.out.println("6. Listar Citas");
             System.out.println("7. Cancelar Cita");
-            System.out.println("8. Buscar cita por código del doctor");
+            System.out.println("8. Listar cita por código del doctor");
             System.out.println("9. Marcar asistencia:");
+            System.out.println("10. Buscar cita por fecha");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
 
@@ -73,6 +74,10 @@ public class Menu {
 
                 case 9:
                     marcarAsistenciaMenu();
+                    break;
+
+                case 10:
+                    findCitasPorFecha();
                     break;
 
                 case 0:
@@ -257,6 +262,17 @@ public class Menu {
         String codigoDoctor = scanner.nextLine();
 
         manager.findCitaDoctor(codigoDoctor);
+    }
+
+    private void findCitasPorFecha(){
+
+        System.out.println("Ingrese la fecha de cita: ");
+        String fechaCitaStr = scanner.nextLine();
+
+        LocalDate fechaCita = LocalDate.parse(fechaCitaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        manager.findCitaFecha(fechaCita);
+
     }
 
     private void marcarAsistenciaMenu() {

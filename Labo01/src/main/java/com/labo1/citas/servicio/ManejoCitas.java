@@ -161,6 +161,17 @@ public class ManejoCitas {
         }
     }
 
+    public void findCitaFecha(LocalDate fecha) {
+        for(Cita cita : citas) {
+            if(cita.getCitaFecha().equals(fecha)) {
+                System.out.println(cita);
+            }
+            else {
+                System.out.println("No se encontraron citas para esa fecha.");
+            }
+        }
+    }
+
     public void marcarAsistencia (String codigoCita) {
 
         for (Cita cita : citas) {
