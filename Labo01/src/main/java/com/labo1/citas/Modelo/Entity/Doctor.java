@@ -46,12 +46,11 @@ public class Doctor extends Persona {
     @Override
     public String toString() {
         return "Doctor{" +
-                "codigoDoctor='" + codigoDoctor + '\'' +
-                ",nombre" + getNombre() +
-                ", apellido" + getApellido() +
-                ", DUI" + getDUI() +
-                "fechaReclutacion=" + fechaReclutacion +
-                ", especialidad='" + especialidad + '\'' +
+                "ID:'" + codigoDoctor + '\'' +
+                ", Nombre: " + getNombre() + " " + getApellido() +
+                ", DUI: " + getDUI() +
+                ", Fecha en que se unió: " + fechaReclutacion +
+                ", Especialidad: '" + especialidad + '\'' +
                 '}';
     }
 }

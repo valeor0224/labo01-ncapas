@@ -87,13 +87,13 @@ public class Cita {
     @Override
     public String toString() {
         return "Cita{" +
-                "id='" + id + '\'' +
-                ", doctor=" + doctor +
-                ", paciente=" + paciente +
-                ", especialidad='" + especialidad + '\'' +
-                ", citaFecha=" + citaFecha +
-                ", citaHora=" + citaHora +
-                ", asistenciaPaciente=" + (asistenciaPaciente ? "Si" : "No") +
+                "ID:'" + id + '\'' +
+                ", Doctor: " + doctor + '\n'+
+                ", Paciente: " + paciente + '\n'+
+                ", Especialidad: '" + especialidad + '\'' + '\n'+
+                ", Fecha: " + citaFecha + '\n'+
+                ", Hora: " + citaHora + '\n' +
+                ", Asistencia: " + (asistenciaPaciente ? "Si" : "No") +
                 '}';
     }
 

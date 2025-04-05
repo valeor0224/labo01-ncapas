@@ -28,7 +28,7 @@ public class Menu {
 
     public void mostrarMenu() {
         while (true) {
-            System.out.println("\n===== MENÚ PRINCIPAL =====");
+            printBox("MUNDO SALVA VIDAS");
             System.out.println("1. Agregar Paciente");
             System.out.println("2. Listar Pacientes");
             System.out.println("3. Agregar Doctor");
@@ -232,34 +232,22 @@ public class Menu {
 
         manager.agendarCita(idPaciente, codigoDoctor, fechaCita, horaCita);
 
-
     }
 
     private LocalTime getRandomTimeBetween(int startHour, int endHour) {
         Random random = new Random();
         int hour = startHour + random.nextInt(endHour - startHour);
-        int minute = random.nextBoolean() ? 0 : 30; // Horas en punto o media hora
+        int minute = 0;
         return LocalTime.of(hour, minute);
     }
 
 
     public void EliminarCita() {
-        System.out.println("Ingrese fecha de cita a eliminar");
-        String fechaCitaStr = scanner.nextLine();
+        System.out.println("Ingrese el codigo de cita: ");
+        String codigoCita = scanner.nextLine();
 
-        LocalDate fechaCita;
-        LocalTime horaCita;
+        manager.DeleteCita(codigoCita);
 
-        fechaCita = LocalDate.parse(fechaCitaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-
-        System.out.println("Ingrese hora de cita a eliminar");
-        String horaCitaStr = scanner.nextLine();
-
-        horaCita = LocalTime.parse(horaCitaStr, DateTimeFormatter.ofPattern("HH:mm"));
-
-
-        manager.DeleteCita(fechaCita, horaCita);
     }
 
     private void findCitasPorDoctorMenu() {
@@ -286,6 +274,15 @@ public class Menu {
         String codigoCita = scanner.nextLine();
 
         manager.marcarAsistencia(codigoCita);
+    }
+
+    public static void printBox(String text) {
+        int length = text.length();
+        String horizontalBorder = "+" + "-".repeat(length + 2) + "+";
+
+        System.out.println(horizontalBorder);
+        System.out.println("| " + text + " |");
+        System.out.println(horizontalBorder);
     }
 
 

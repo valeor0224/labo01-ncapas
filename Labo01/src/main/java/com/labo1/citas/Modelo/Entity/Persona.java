@@ -60,10 +60,9 @@ public abstract class Persona {
     @Override
     public String toString() {
         return "Persona{" +
-                "nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", dui='" + DUI + '\'' +
-                ", fechaNacimiento=" + fechaNacimiento +
+                "Nombre:'" + nombre + " " + apellido + '\'' +
+                ", DUI:'" + DUI + '\'' +
+                ", Fecha de nacimiento:" + fechaNacimiento +
                 '}';
     }
 }

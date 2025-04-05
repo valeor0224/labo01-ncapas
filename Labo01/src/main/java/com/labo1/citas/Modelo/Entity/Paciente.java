@@ -22,14 +22,15 @@ public class Paciente extends Persona {
     }
 
 
+
+
     @Override
     public String toString() {
-        return "Persona{" +
-                "id='" + id + '\'' +
-                "nombre='" + getNombre() + '\'' +
-                ", apellido='" + getApellido() + '\'' +
-                ", dui='" + getDUI() + '\'' +
-                ", fechaNacimiento=" + getFechaNacimiento() +
+        return "Paciente{" +
+                "ID:'" + id + '\'' +
+                ", Nombre:'" + getNombre()+ " " + getApellido() + '\'' +
+                ", DUI:'" + getDUI() + '\'' +
+                ", Fecha de Nacimiento: " + getFechaNacimiento() +
                 '}';
     }
 }

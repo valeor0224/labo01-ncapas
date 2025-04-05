@@ -85,13 +85,13 @@ public class ManejoCitas {
                 .orElse(null);
     }
 
-    public void DeleteCita(LocalDate fecha, LocalTime hora) {
+    public void DeleteCita(String codigo) {
         /*for (Cita c : citas) {
             if (c.getCitaFecha().equals(fecha) && c.getCitaHora().equals(hora)) {
                 citas.remove(c);
             }
         }*/
-        citas.removeIf(c -> c.getCitaFecha().equals(fecha) && c.getCitaHora().equals(hora));
+        citas.removeIf(c -> c.getId().equals(codigo));
 
     }
 
