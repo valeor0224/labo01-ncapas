@@ -10,6 +10,7 @@ public class Doctor extends Persona {
     private String especialidad;
     private String codigoDoctor;
 
+    //Este es el constructor 
     public Doctor(String nombre, String apellido, String DUI, LocalDate fechaNacimiento, LocalDate fechaReclutacion, String especialidad) {
         //super esta llamando al constructor de la clase padre, en este caso Persona, asi cuando se construye un paciente, tambien se construya una persona
 

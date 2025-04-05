@@ -129,7 +129,7 @@ public class Menu {
         String dui = "00000000-0"; // Valor por defecto
 
         if (edad >= 18) {
-            System.out.print("🆔 Ingrese el DUI: ");
+            System.out.print("🆔 Ingrese el DUI (xxxxxxxxx) sin guiones: ");
             dui = scanner.nextLine();
             if (!dui.matches("\\d{8}-\\d{1}")) {
                 System.out.println("El dui no es válido");

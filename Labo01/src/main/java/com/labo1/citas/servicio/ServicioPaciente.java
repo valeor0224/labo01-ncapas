@@ -1,17 +1,22 @@
 package com.labo1.citas.servicio;
 
+import com.labo1.citas.Modelo.DTO.PacienteDTO;
 import com.labo1.citas.Modelo.Entity.Paciente;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class ServicioPaciente {
 
     private List<Paciente> pacientes = new ArrayList<>(); // Lista de pacientes
     private int contadorPacientes = 1; // Contador para generar IDs únicos
 
+    // Método para obtener la lista completa de pacientes
     public List<Paciente> getPacientes() {
         return pacientes;
+    }
+
+    public PacienteDTO obtenerPacienteDTO(Paciente paciente) {
+        return new PacienteDTO(paciente.getNombre(), paciente.getApellido(), paciente.getDUI());
     }
 
     public void agregarPaciente(Paciente paciente) {
@@ -36,9 +41,10 @@ public class ServicioPaciente {
     }
 
     public void listPatients() {
-        System.out.println("👥 Lista de Pacientes:");
-        pacientes.forEach(System.out::println);
+        // Usamos PacienteDTO para pasar los datos
+        pacientes.forEach(paciente -> {
+            PacienteDTO pacienteDTO = obtenerPacienteDTO(paciente);
+            System.out.println(pacienteDTO.getNombre() + " " + pacienteDTO.getApellido());
+        });
     }
-
-
 }

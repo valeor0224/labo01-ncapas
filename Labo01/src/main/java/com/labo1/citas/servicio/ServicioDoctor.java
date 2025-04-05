@@ -1,5 +1,6 @@
 package com.labo1.citas.servicio;
 
+import com.labo1.citas.Modelo.DTO.DoctorDTO;
 import com.labo1.citas.Modelo.Entity.Doctor;
 
 import java.util.ArrayList;
@@ -10,8 +11,14 @@ public class ServicioDoctor {
 
     private List<Doctor> doctores = new ArrayList<>();
 
+    // Método para obtener la lista de doctores
     public List<Doctor> getDoctores() {
-        return doctores;
+        return doctores; // Devuelve la lista completa de doctores
+    }
+
+    // Método para convertir Doctor a DoctorDTO
+    public DoctorDTO obtenerDoctorDTO(Doctor doctor) {
+        return new DoctorDTO(doctor.getNombre(), doctor.getEspecialidad());
     }
 
     private Random random = new Random();
@@ -30,9 +37,6 @@ public class ServicioDoctor {
         }
 
         doctor.setCodigoDoctor(codigo);
-
-
-
         doctores.add(doctor);
     }
 
@@ -50,8 +54,10 @@ public class ServicioDoctor {
     }
 
     public void listDoctors() {
-        System.out.println("Lista de Doctores:");
-        doctores.forEach(System.out::println);
+        // Usamos DoctorDTO para pasar los datos
+        doctores.forEach(doctor -> {
+            DoctorDTO doctorDTO = obtenerDoctorDTO(doctor);
+            System.out.println(doctorDTO.getNombre() + " - " + doctorDTO.getEspecialidad());
+        });
     }
-
 }
