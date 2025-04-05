@@ -66,6 +66,10 @@ public class ManejoCitas {
 
     public void listCitas() {
         System.out.println("Lista de Citas:");
+        if (citas.isEmpty()) {
+            System.out.println("No se encontraron citas.");
+            return;
+        }
         citas.forEach(System.out::println);
     }
 
