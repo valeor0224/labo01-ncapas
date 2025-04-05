@@ -3,6 +3,8 @@ package com.labo1.citas.Presentacion;
 import com.labo1.citas.Modelo.Entity.Doctor;
 import com.labo1.citas.Modelo.Entity.Paciente;
 import com.labo1.citas.servicio.ManejoCitas;
+import com.labo1.citas.servicio.ServicioDoctor;
+import com.labo1.citas.servicio.ServicioPaciente;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,11 +14,15 @@ import java.util.Scanner;
 
 public class Menu {
     private ManejoCitas manager; // ✅ Declare instance variable
+    private ServicioDoctor managerDoctor;
+    private ServicioPaciente managerPaciente;
     private Scanner scanner;
 
     // ✅ Constructor initializes `PacienteService` and `Scanner`
     public Menu() {
-        this.manager = new ManejoCitas();
+        this.managerDoctor = new ServicioDoctor();
+        this.managerPaciente = new ServicioPaciente();
+        this.manager = new ManejoCitas(managerDoctor, managerPaciente);
         this.scanner = new Scanner(System.in);
     }
 
@@ -45,7 +51,7 @@ public class Menu {
                     break;
 
                 case 2:
-                    manager.listPatients();
+                    managerPaciente.listPatients();
                     break;
 
                 case 3:
@@ -53,7 +59,7 @@ public class Menu {
                     break;
 
                 case 4:
-                    manager.listDoctors();
+                    managerDoctor.listDoctors();
                     break;
 
                 case 5:
@@ -120,7 +126,7 @@ public class Menu {
 
 
         int edad = LocalDate.now().getYear() - fechaNacimiento.getYear();
-        String dui = "00000000-0,"; // Valor por defecto
+        String dui = "00000000-0"; // Valor por defecto
 
         if (edad >= 18) {
             System.out.print("🆔 Ingrese el DUI: ");
@@ -133,7 +139,7 @@ public class Menu {
 
 
         Paciente nuevoPaciente = new Paciente(nombre, apellido, dui, fechaNacimiento);
-        manager.agregarPaciente(nuevoPaciente);
+        managerPaciente.agregarPaciente(nuevoPaciente);
     }
 
 
@@ -186,7 +192,7 @@ public class Menu {
 
         Doctor nuevoDoctor = new Doctor(nombre, apellido, dui, fechaNacimiento, fechaReclutacion, especialidad);
 
-        manager.agregarDoctor(nuevoDoctor);
+        managerDoctor.agregarDoctor(nuevoDoctor);
     }
 
     public void agregarCitasMenu() {

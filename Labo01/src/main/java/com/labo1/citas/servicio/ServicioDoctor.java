@@ -4,40 +4,54 @@ import com.labo1.citas.Modelo.Entity.Doctor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ServicioDoctor {
-    private List<Doctor> doctores;
 
-    public ServicioDoctor() {
-        this.doctores = new ArrayList<>();
-    }
+    private List<Doctor> doctores = new ArrayList<>();
 
-    // Agregar un nuevo doctor
-    public void agregarDoctor(Doctor doctor) {
-        // Validar si ya existe un doctor con el mismo código
-        for (Doctor d : doctores) {
-            if (d.getCodigoDoctor().equals(doctor.getCodigoDoctor())) {
-                System.out.println("Error: Ya existe un doctor con ese código.");
-                return;
-            }
-        }
-        doctores.add(doctor);
-        System.out.println("Doctor registrado con éxito: " + doctor.getNombre() + " " + doctor.getApellido());
-    }
-
-    // Buscar un doctor por su código
-    public Doctor buscarDoctorPorCodigo(String codigo) {
-        for (Doctor doctor : doctores) {
-            if (doctor.getCodigoDoctor().equals(codigo)) {
-                return doctor;
-            }
-        }
-        System.out.println("Error: No se encontró un doctor con ese código.");
-        return null;
-    }
-
-    // Listar todos los doctores registrados
-    public List<Doctor> listarDoctores() {
+    public List<Doctor> getDoctores() {
         return doctores;
     }
+
+    private Random random = new Random();
+
+
+    public void agregarDoctor(Doctor doctor) {
+
+        String codigo = generarCodigo();
+        System.out.println("Código generado: " + codigo);
+
+        for (Doctor doc : doctores) {
+            while (doc.getCodigoDoctor().equals(codigo)) {
+                codigo = generarCodigo();
+                System.out.println("Código generado: " + codigo);
+            }
+        }
+
+        doctor.setCodigoDoctor(codigo);
+
+
+
+        doctores.add(doctor);
+    }
+
+    public String generarCodigo() {
+        return "ZNH-" + generarNum() + getLetraAleatoria() + generarNum() + "-MD-" + generarNum() + getLetraAleatoria() ;
+    }
+
+    private String generarNum() {
+        return String.valueOf(random.nextInt(10));
+    }
+
+    private String getLetraAleatoria() {
+        char letra = (char) ('A' + random.nextInt(26));
+        return String.valueOf(letra); // Genera una letra mayúscula aleatoria
+    }
+
+    public void listDoctors() {
+        System.out.println("Lista de Doctores:");
+        doctores.forEach(System.out::println);
+    }
+
 }
