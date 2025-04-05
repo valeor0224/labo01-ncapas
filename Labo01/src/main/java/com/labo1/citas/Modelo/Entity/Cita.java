@@ -6,22 +6,24 @@ import java.time.LocalTime;
 public class Cita {
     //Protected significa que puede ser accedido solo
     // desde el mismo paquete
+    private String id;
     private Doctor doctor;
     private Paciente paciente;
     private String especialidad;
     private LocalDate citaFecha;
     private LocalTime citaHora;
+    private boolean asistenciaPaciente = false;
 
     public Cita(Doctor doctor, Paciente paciente, String especialidad, LocalDate citaFecha, LocalTime citaHora) {
         this.doctor = doctor;
-        this.especialidad = especialidad;
         this.paciente = paciente;
+        this.especialidad = especialidad;
         this.citaFecha = citaFecha;
         this.citaHora = citaHora;
     }
 
 
-// Getters y Setters
+    // Getters y Setters
 
     public Doctor getDoctor() {
         return doctor;
@@ -63,14 +65,36 @@ public class Cita {
         this.especialidad = especialidad;
     }
 
+
+
+    public boolean isAsistenciaPaciente() {
+        return asistenciaPaciente;
+    }
+
+    public void setAsistenciaPaciente(boolean asistenciaPaciente) {
+        this.asistenciaPaciente = asistenciaPaciente;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
     @Override
     public String toString() {
         return "Cita{" +
-                "doctor=" + doctor +
+                "id='" + id + '\'' +
+                ", doctor=" + doctor +
                 ", paciente=" + paciente +
                 ", especialidad='" + especialidad + '\'' +
                 ", citaFecha=" + citaFecha +
                 ", citaHora=" + citaHora +
+                ", asistenciaPaciente=" + (asistenciaPaciente ? "Si" : "No") +
                 '}';
     }
+
 }

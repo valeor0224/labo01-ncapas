@@ -1,6 +1,7 @@
 package com.labo1.citas.servicio;
 
 import com.labo1.citas.Modelo.Entity.Cita;
+import com.labo1.citas.Modelo.Entity.Consulta;
 import com.labo1.citas.Modelo.Entity.Doctor;
 import com.labo1.citas.Modelo.Entity.Paciente;
 
@@ -9,14 +10,17 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class ManejoCitas {
     private List<Paciente> pacientes = new ArrayList<>(); // Lista de pacientes
     private List<Doctor> doctores = new ArrayList<>();
     private List<Cita> citas = new ArrayList<>();
+    private List <Consulta> consultas = new ArrayList<>();
     private Random random = new Random();
 
     private int contadorPacientes = 1; // Contador para generar IDs únicos
+    private int contadorCitas = 1;
 
     public void agregarPaciente(Paciente paciente) {
 
@@ -99,8 +103,21 @@ public class ManejoCitas {
             }
         }
 
+
+
         Cita nuevaCita = new Cita(doctor, patient, especialidadCita, fechaCita, horaCita);
+
+        String idGenerado = "C" + contadorCitas++;
+
+
+        nuevaCita.setId(idGenerado);
+
+
         citas.add(nuevaCita);
+
+
+
+
 
 
 
@@ -136,11 +153,28 @@ public class ManejoCitas {
 
     }
 
+    public void findCitaDoctor(String id) {
+        for(Cita cita : citas) {
+            if(cita.getDoctor().getCodigoDoctor().equals(id)) {
+                System.out.println(cita);
+            }
+        }
+    }
 
+    public void marcarAsistencia (String codigoCita) {
 
+        for (Cita cita : citas) {
+            if(cita.getId().equals(codigoCita)) {
+                cita.setAsistenciaPaciente(true);
+                System.out.println("Asistencia marcada con éxito.");
+            }
+            else {
+                System.out.println("No se encontró cita");
+            }
 
+        }
 
-
+    }
 
 
 

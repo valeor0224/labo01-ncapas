@@ -30,6 +30,8 @@ public class Menu {
             System.out.println("5. Agregar Cita");
             System.out.println("6. Listar Citas");
             System.out.println("7. Cancelar Cita");
+            System.out.println("8. Buscar cita por código del doctor");
+            System.out.println("9. Marcar asistencia:");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
 
@@ -65,6 +67,13 @@ public class Menu {
                     EliminarCita();
                     break;
 
+                case 8:
+                    findCitasPorDoctorMenu();
+                    break;
+
+                case 9:
+                    marcarAsistenciaMenu();
+                    break;
 
                 case 0:
                     System.out.println("Saliendo del programa...");
@@ -77,6 +86,8 @@ public class Menu {
             }
         }
     }
+
+
 
     private void agregarPacienteDesdeMenu() {
 
@@ -239,6 +250,27 @@ public class Menu {
 
         manager.DeleteCita(fechaCita, horaCita);
     }
+
+    private void findCitasPorDoctorMenu() {
+
+        System.out.println("Ingrese el codigo del doctor: ");
+        String codigoDoctor = scanner.nextLine();
+
+        manager.findCitaDoctor(codigoDoctor);
+    }
+
+    private void marcarAsistenciaMenu() {
+        System.out.println("Ingrese el codigo de cita: ");
+        String codigoCita = scanner.nextLine();
+
+        manager.marcarAsistencia(codigoCita);
+    }
+
+
+
+
+
+
 
 
 }
