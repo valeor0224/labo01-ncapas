@@ -28,6 +28,9 @@ public class Menu {
 
     public void mostrarMenu() {
         while (true) {
+            System.out.println("***********************************************");
+            System.out.println("   Bienvenido al Hospital Nacional de Zaun.  ");
+            System.out.println("***********************************************");
             printBox("MUNDO SALVA VIDAS");
             System.out.println("1. Agregar Paciente");
             System.out.println("2. Listar Pacientes");
@@ -37,7 +40,7 @@ public class Menu {
             System.out.println("6. Listar Citas");
             System.out.println("7. Cancelar Cita");
             System.out.println("8. Listar cita por código del doctor");
-            System.out.println("9. Marcar asistencia:");
+            System.out.println("9. Marcar asistencia");
             System.out.println("10. Buscar cita por fecha");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
@@ -246,6 +249,8 @@ public class Menu {
         System.out.print("📅 Fecha de Cita (yyyy-MM-dd): ");
         String fechaCitaStr = scanner.nextLine();
         LocalDate fechaCita;
+        LocalTime horaCita;
+        String horaCitaStr;
 
         try {
             fechaCita = LocalDate.parse(fechaCitaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -259,7 +264,15 @@ public class Menu {
             return;
         }
 
-        LocalTime horaCita = getRandomTimeBetween(8, 16);
+
+        if (fechaCita.isAfter(LocalDate.now())) {
+            horaCita = getRandomTimeBetween(8, 16);
+        } else {
+            System.out.println("Hora de cita: ");
+            horaCitaStr = scanner.nextLine();
+            horaCita = LocalTime.parse(horaCitaStr, DateTimeFormatter.ofPattern("HH:mm"));
+        }
+
 
         manager.agendarCita(idPaciente, codigoDoctor, fechaCita, horaCita);
     }
