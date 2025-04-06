@@ -16,8 +16,10 @@ public class ServicioPaciente {
     }
 
     public PacienteDTO obtenerPacienteDTO(Paciente paciente) {
-        return new PacienteDTO(paciente.getNombre(), paciente.getApellido(), paciente.getDUI());
+        // Ahora creamos el DTO con el id del paciente
+        return new PacienteDTO(paciente.getId(), paciente.getNombre(), paciente.getApellido(), paciente.getDUI());
     }
+
 
     public void agregarPaciente(Paciente paciente) {
 
@@ -41,10 +43,14 @@ public class ServicioPaciente {
     }
 
     public void listPatients() {
-        // Usamos PacienteDTO para pasar los datos
-        pacientes.forEach(paciente -> {
-            PacienteDTO pacienteDTO = obtenerPacienteDTO(paciente);
-            System.out.println(pacienteDTO.getNombre() + " " + pacienteDTO.getApellido());
-        });
+        if (pacientes.isEmpty()) {
+            System.out.println("No se encontraron pacientes.");
+        } else {
+            pacientes.forEach(paciente -> {
+                PacienteDTO pacienteDTO = obtenerPacienteDTO(paciente);  // Se obtiene el DTO con el ID
+                System.out.println(pacienteDTO);  // Esto invoca automáticamente el toString() del DTO
+            });
+        }
     }
+
 }

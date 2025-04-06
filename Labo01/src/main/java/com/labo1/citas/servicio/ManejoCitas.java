@@ -75,7 +75,7 @@ public class ManejoCitas {
 
 
     public DoctorDTO findDoctor(String id) {
-        // Obtener un Doctor de la lista usando el método getDoctores()
+        // Obtener un Doctor de la lista usando el metodo getDoctores()
         Doctor doctor = servDoctores.getDoctores().stream()
                 .filter(d -> d.getCodigoDoctor().equals(id))
                 .findFirst()
@@ -94,12 +94,17 @@ public class ManejoCitas {
     }
 
     public void findCitaDoctor(String id) {
-        for(Cita cita : citas) {
-            if(cita.getDoctor().getCodigoDoctor().equals(id)) {
-                System.out.println(cita);
+        for (Cita cita : citas) {
+            if (cita.getDoctor() != null && cita.getDoctor().getCodigoDoctor() != null) {
+                if (cita.getDoctor().getCodigoDoctor().equals(id)) {
+                    System.out.println(cita);
+                }
+            } else {
+                System.out.println("❌ El doctor no tiene un código asignado.");
             }
         }
     }
+
 
     public void findCitaFecha(LocalDate fecha) {
         for(Cita cita : citas) {

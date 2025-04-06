@@ -103,10 +103,18 @@ public class Menu {
     private void agregarPacienteDesdeMenu() {
 
         System.out.print("👤 Nombre: ");
-        String nombre = scanner.nextLine();
+        String nombre = scanner.nextLine().trim();
+        if (nombre.isEmpty()) {
+            System.out.println("❌ Error: El nombre no puede estar vacío.");
+            return;
+        }
 
         System.out.print("👤 Apellido: ");
-        String apellido = scanner.nextLine();
+        String apellido = scanner.nextLine().trim();
+        if (apellido.isEmpty()) {
+            System.out.println("❌ Error: El apellido no puede estar vacío.");
+            return;
+        }
 
         System.out.print("📅 Fecha de Nacimiento (yyyy-MM-dd): ");
         String fechaNacimientoStr = scanner.nextLine();
@@ -124,19 +132,23 @@ public class Menu {
             return;
         }
 
-
         int edad = LocalDate.now().getYear() - fechaNacimiento.getYear();
         String dui = "00000000-0"; // Valor por defecto
 
         if (edad >= 18) {
-            System.out.print("🆔 Ingrese el DUI (xxxxxxxxx) sin guiones: ");
+            System.out.print("🆔 Ingrese el DUI (xxxxxxxx-x) con guion: ");
             dui = scanner.nextLine();
             if (!dui.matches("\\d{8}-\\d{1}")) {
-                System.out.println("El dui no es válido");
+                System.out.println("❌ Error: El DUI no es válido.");
                 return;
             }
         }
 
+        // Validación: No permitir que se ingrese un paciente con nombre o apellido vacío.
+        if (nombre.isEmpty() || apellido.isEmpty()) {
+            System.out.println("❌ Error: El nombre y apellido no pueden estar vacíos.");
+            return;
+        }
 
         Paciente nuevoPaciente = new Paciente(nombre, apellido, dui, fechaNacimiento);
         managerPaciente.agregarPaciente(nuevoPaciente);
@@ -146,10 +158,18 @@ public class Menu {
     public void agregarDoctordesMenu() {
 
         System.out.print("👤 Nombre: ");
-        String nombre = scanner.nextLine();
+        String nombre = scanner.nextLine().trim();
+        if (!nombre.matches("[a-zA-Z\\s]+")) {
+            System.out.println("❌ Error: El nombre solo puede contener letras y espacios.");
+            return;
+        }
 
         System.out.print("👤 Apellido: ");
-        String apellido = scanner.nextLine();
+        String apellido = scanner.nextLine().trim();
+        if (!apellido.matches("[a-zA-Z\\s]+")) {
+            System.out.println("❌ Error: El apellido solo puede contener letras y espacios.");
+            return;
+        }
 
         System.out.print("📅 Fecha de Nacimiento (yyyy-MM-dd): ");
         String fechaNacimientoStr = scanner.nextLine();
@@ -167,19 +187,22 @@ public class Menu {
             return;
         }
 
-        System.out.print("🆔 Ingrese el DUI: ");
+        System.out.print("🆔 Ingrese el DUI (xxxxxxxx-x) con guion: ");
         String dui = scanner.nextLine();
         if (!dui.matches("\\d{8}-\\d{1}")) {
-            System.out.println("El dui no es válido");
+            System.out.println("❌ Error: El DUI no es válido.");
             return;
         }
 
-        System.out.println("Especialidad: ");
-        String especialidad = scanner.nextLine();
+        System.out.print("Especialidad: ");
+        String especialidad = scanner.nextLine().trim();
+        if (especialidad.isEmpty()) {
+            System.out.println("❌ Error: La especialidad no puede estar vacía.");
+            return;
+        }
 
-        System.out.println("Fecha de reclutacion (yyyy-MM-dd): ");
+        System.out.print("Fecha de reclutamiento (yyyy-MM-dd): ");
         String fechaReclutacionStr = scanner.nextLine();
-
         LocalDate fechaReclutacion;
 
         try {
@@ -189,26 +212,40 @@ public class Menu {
             return;
         }
 
+        // Validación: No permitir que el doctor tenga una especialidad vacía.
+        if (especialidad.isEmpty()) {
+            System.out.println("❌ Error: La especialidad no puede estar vacía.");
+            return;
+        }
 
         Doctor nuevoDoctor = new Doctor(nombre, apellido, dui, fechaNacimiento, fechaReclutacion, especialidad);
-
         managerDoctor.agregarDoctor(nuevoDoctor);
     }
+
 
     public void agregarCitasMenu() {
 
         System.out.println("Escriba el id del paciente: ");
-        String idPaciente = scanner.nextLine();
+        String idPaciente = scanner.nextLine().trim();
 
-        System.out.println("Escriba el codigo del doctor: ");
-        String codigoDoctor = scanner.nextLine();
+        // Validación: Asegurarse de que el paciente existe en el sistema.
+        if (managerPaciente.getPacientes().stream().noneMatch(p -> p.getId().equals(idPaciente))) {
+            System.out.println("❌ Error: El paciente no existe.");
+            return;
+        }
 
+        System.out.println("Escriba el código del doctor: ");
+        String codigoDoctor = scanner.nextLine().trim();
+
+        // Validación: Asegurarse de que el doctor existe en el sistema.
+        if (managerDoctor.getDoctores().stream().noneMatch(d -> d.getCodigoDoctor().equals(codigoDoctor))) {
+            System.out.println("❌ Error: El doctor no existe.");
+            return;
+        }
 
         System.out.print("📅 Fecha de Cita (yyyy-MM-dd): ");
         String fechaCitaStr = scanner.nextLine();
         LocalDate fechaCita;
-        LocalTime horaCita;
-        String horaCitaStr;
 
         try {
             fechaCita = LocalDate.parse(fechaCitaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -217,22 +254,16 @@ public class Menu {
             return;
         }
 
-
-        if (fechaCita.isAfter(LocalDate.now())) {
-            horaCita = getRandomTimeBetween(8, 16);
-        } else {
-            System.out.println("Hora de cita: ");
-            horaCitaStr = scanner.nextLine();
-            horaCita = LocalTime.parse(horaCitaStr, DateTimeFormatter.ofPattern("HH:mm"));
+        if (fechaCita.isBefore(LocalDate.now())) {
+            System.out.println("❌ Error: No se pueden agendar citas en el pasado.");
+            return;
         }
 
-
-        System.out.println("Hora de cita: ");
-
+        LocalTime horaCita = getRandomTimeBetween(8, 16);
 
         manager.agendarCita(idPaciente, codigoDoctor, fechaCita, horaCita);
-
     }
+
 
     private LocalTime getRandomTimeBetween(int startHour, int endHour) {
         Random random = new Random();

@@ -18,8 +18,10 @@ public class ServicioDoctor {
 
     // Método para convertir Doctor a DoctorDTO
     public DoctorDTO obtenerDoctorDTO(Doctor doctor) {
-        return new DoctorDTO(doctor.getNombre(), doctor.getEspecialidad());
+        // Ahora creamos el DTO con el código del doctor, nombre y especialidad
+        return new DoctorDTO(doctor.getCodigoDoctor(), doctor.getNombre(), doctor.getEspecialidad());
     }
+
 
     private Random random = new Random();
 
@@ -54,10 +56,14 @@ public class ServicioDoctor {
     }
 
     public void listDoctors() {
-        // Usamos DoctorDTO para pasar los datos
-        doctores.forEach(doctor -> {
-            DoctorDTO doctorDTO = obtenerDoctorDTO(doctor);
-            System.out.println(doctorDTO.getNombre() + " - " + doctorDTO.getEspecialidad());
-        });
+        if (doctores.isEmpty()) {
+            System.out.println("No se encontraron doctores.");
+        } else {
+            doctores.forEach(doctor -> {
+                DoctorDTO doctorDTO = obtenerDoctorDTO(doctor);  // Se obtiene el DTO con el código del doctor
+                System.out.println(doctorDTO);  // Esto invoca automáticamente el toString() del DTO
+            });
+        }
     }
+
 }

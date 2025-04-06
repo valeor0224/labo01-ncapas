@@ -10,7 +10,7 @@ public class Paciente extends Persona {
 
     public Paciente(String nombre, String apellido, String DUI, LocalDate fechaNacimiento) {
         super(nombre, apellido, DUI, fechaNacimiento);
-
+        this.id = id;
     }
 
     public String getId() {
